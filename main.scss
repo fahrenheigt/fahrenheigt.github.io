@@ -1,0 +1,16 @@
+@font-face {
+    font-family:BeaufortforLOL-Bold; ;
+    src: url('../fonts/BeaufortforLOL-Bold.eot');
+}
+@font-face {
+    font-family:BeaufortforLOL-Medium; ;
+    src: url('../fonts/BeaufortforLOL-Medium.eot');
+}
+@font-face {
+    font-family:Spiegelregular;
+    src: url('../fonts/spiegel-sans-regular.eot');
+}
+@import "sass/variables";
+@import "sass/base";
+@import "sass/champion";
+@import "sass/_items";

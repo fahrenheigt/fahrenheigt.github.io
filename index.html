@@ -1,11 +1,233 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+<html lang="en"><head>
+    <link rel="stylesheet" href="/css/main.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/js/champions.js"></script>
+    <script src="/js/items.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"></script>
+    <link rel="icon" type="Lol-logo" href="images/favicon.ico">
+    <meta name="description" content="Explore detailed champion profiles with interactive cards and modals for League of Legends. View champion images, titles, spells, stats, and lore with smooth animations and popups.">
+  </head>
+  <body>
+    <nav id="navbar" class="navbar">
+      <header>
+      <img src="./images/Lol-logo.png" alt="League of Legends Logo" class="header__logo">
+      <span class="display-none">L</span>eague Documentation
+    </header>
+      <ul>
+        <li><a class="navbar__link" href="#Introduction_to_league">Introduction to League</a></li>
+        <img src="/images/decorator.png" alt="decorator" class="decorator">
+        <li>
+          <a class="navbar__link" href="#About_this_guide">About this Guide</a>
+        </li>
+        <img src="/images/decorator.png" alt="decorator" class="decorator">
+        <li>
+          <a class="navbar__link" href="#Champions">Champions</a>
+        </li>
+        <img src="/images/decorator.png" alt="decorator" class="decorator">
+        <li><a class="navbar__link" href="#Items">Items</a></li>
+        <img src="/images/decorator.png" alt="decorator" class="decorator">
+        <li><a class="navbar__link" href="#How_do_statistics_work_?">How do statistics work ?</a></li>
+        <img src="/images/decorator.png" alt="decorator" class="decorator">
+        <li><a class="navbar__link" href="#Contact">Contact</a></li>
+      </ul>
+    </nav>
+    <main class="main-doc" id="main-doc">
+      <section class="main-section" id="Introduction_to_league">
+        <header class="sub-header">Welcome to</header>
+        <header>League of Legends</header>
+        <img src="/images/decorator.png" alt="decorator" class="decorator">
+        <article>
+          <p>
+            <abbr title="League of Legends">Lol</abbr> is a fast-paced, competitive online game 
+            developed by Riot Games. Since its release in 2009, it has become 
+            one of the most popular <abbr title="Multiplayer Online Battle Arena">MOBA</abbr> games 
+            in the world, offering intense strategy, teamplay, and action-packed 
+            combat.
+          </p>
+          <p>
+            In League of Legends, players assume the role of champions—powerful 
+            characters with unique abilities—working together in teams of five 
+            to destroy the opposing team’s Nexus, a critical structure located 
+            in their base. The game is known for its depth, where mastering 
+            champions, team strategies, and map awareness are crucial to success.
+          </p>
+
+          <p>What sets League of Legends apart is its diverse roster of over 160 champions, each with distinct playstyles, strengths, and weaknesses. Whether you prefer the role of a damage-dealing assassin, a resilient tank, or a masterful support, there’s a champion for every player.</p>
+
+          <p>Join the millions of players worldwide who are part of this dynamic and ever-evolving universe. Whether you're looking to climb the ranked ladder, play casually with friends, or explore the lore behind the champions, League of Legends offers an experience that’s both challenging and incredibly rewarding.</p>
+        </article>
+      </section>
+      <section class="main-section" id="About_this_guide">
+        <header>About this documentation</header>
+        <img src="/images/decorator.png" alt="decorator" class="decorator">
+        <article>
+          <p>
+            This guide was created using official resources and data 
+            provided by Riot Games, the developers of League of Legends. 
+            All champion information, items, and game mechanics are based on 
+            the most up-to-date content directly from the game itself. 
+            The goal of this guide is to offer players accurate and reliable 
+            information to enhance their experience in the world of League of 
+            Legends.
+          </p>
+          </ul>
+        </article>
+      </section>
+      <section class="main-section" id="Champions">
+        <header>Champions</header>
+        <img src="/images/decorator.png" alt="decorator" class="decorator">
+        <article>
+          <!-- Search bar for filtering champions -->
+          <input type="text" id="champion-search" placeholder="Search for a champion..." />
+          <div id="champion-container">
+
+          </div>
+              <!-- Modal for Champion Info -->
+            <div id="backdrop-filter"></div>
+            <div class="modal" id="champion-modal">
+              <div class="modal-content">
+                  <div class="name-and-title">
+                    <h2 id="champion-name"></h2>
+                    <p id="champion-title"></p>
+                  </div>
+                  <h3>Lore</h3>
+                  <img src="/images/decorator.png" alt="decorator" class="decorator">
+                  <p id="champion-lore"></p>
+                  <h3>Spells</h3>
+                  <img src="/images/decorator.png" alt="decorator" class="decorator">
+                  <ul id="champion-spells"></ul>
+              </div>
+            </div>
+        </article>
+      </section>
+      <section class="main-section" id="Items">
+        <header>Items</header>
+        <img src="/images/decorator.png" alt="decorator" class="decorator">
+        <article>
+          <div id="filter-container">
+            <label for="stat-filter">Filter by statistic:</label>
+            <select id="stat-filter">
+                <option value="All">Display All</option>
+                <div class="separator"></div>
+                <option value="FlatMovementSpeedMod">Movement Speed</option>
+                <option value="FlatArmorMod">Armor</option>
+                <option value="FlatMagicDamageMod">Magic Damage</option>
+                <option value="FlatHPRegenMod">Health Regeneration</option>
+                <option value="PercentLifeStealMod">Life Steal</option>
+                <option value="PercentAttackSpeedMod">Attack Speed</option>
+                <option value="PercentSpellBlockMod">Magic Resist</option>
+                <option value="FlatPhysicalDamageMod">Physical Damage</option>
+                <option value="FlatHPPoolMod">Health</option>
+                <option value="FlatMPPoolMod">Mana</option>
+                <option value="FlatCritChanceMod">Critical Strike Chance</option>
+            </select>
+            <button id="apply-filter">Apply Filter</button>
+          </div>
+        <!-- Search bar to search items by name -->
+          <div id="search-container">
+            <input type="text" id="item-search" placeholder="Search for an item..." />
+          </div>
+          <div id="item-container"></div>
+        </article>
+      </section>
+      <section class="main-section" id="How_do_statistics_work_?">
+        <header>Statistics</header>
+        <img src="/images/decorator.png" alt="decorator" class="decorator">
+        
+        <h2>Types</h2>
+        <p>There are 23 types of champion statistics divided into 3 different categories: Defensive, Offensive, and Utility. Below are the basic attributes of each statistic.</p>
     
+        <h3>Defensive</h3>
+        <ul>
+            <li><strong>Health [HP]</strong>: A champion dies when their health is reduced to zero. Some abilities and effects may scale off health (current, bonus, missing, or maximum).</li>
+            <li><strong>Health regeneration [HP5]</strong>: The amount of health a champion restores passively every 5 seconds.</li>
+            <li><strong>Heal and shield power</strong>: Increases the strength of healing or shielding effects on yourself or allies.</li>
+            <li><strong>Armor [AR]</strong>: Reduces the amount of physical damage taken.</li>
+            <li><strong>Magic resistance [MR]</strong>: Reduces the amount of magic damage taken.</li>
+            <li><strong>Tenacity</strong>: Reduces the duration of most crowd control effects.</li>
+            <li><strong>Slow resist</strong>: Reduces the strength of incoming slows.</li>
+        </ul>
+    
+        <h3>Offensive</h3>
+        <ul>
+            <li><strong>Attack speed [AS]</strong>: The number of basic attacks a champion can perform per second.</li>
+            <li><strong>Attack damage [AD]</strong>: Basic attacks deal exactly this amount of damage.</li>
+            <li><strong>Ability power [AP]</strong>: Used to amplify abilities and some other damage sources.</li>
+            <li><strong>Critical strike chance [Crit%]</strong>: The chance that a basic attack will critically strike.</li>
+            <li><strong>Critical strike damage</strong>: The damage dealt when a critical strike occurs.</li>
+            <li><strong>Armor penetration</strong>: Ignores a portion of enemy armor when dealing physical damage.</li>
+            <li><strong>Magic penetration</strong>: Ignores a portion of enemy magic resistance when dealing magic damage.</li>
+            <li><strong>Life steal</strong>: Restores health as a percentage of the damage dealt by basic attacks.</li>
+            <li><strong>Physical vamp</strong>: Restores health as a percentage of all physical damage dealt.</li>
+            <li><strong>Omnivamp</strong>: Restores health as a percentage of all damage dealt.</li>
+        </ul>
+    
+        <h3>Utility</h3>
+        <ul>
+            <li><strong>Ability haste [AH]</strong>: Reduces the cooldown of abilities.</li>
+            <li><strong>Mana [MP]</strong>: A resource that is used to cast abilities.</li>
+            <li><strong>Mana regeneration [MP5]</strong>: The amount of mana a champion restores passively every 5 seconds.</li>
+            <li><strong>Energy</strong>: A short-term resource for casting abilities, replenishes quickly.</li>
+            <li><strong>Energy regeneration</strong>: The amount of energy a champion restores passively every 5 seconds.</li>
+            <li><strong>Attack range</strong>: The maximum distance from which a champion can perform a basic attack.</li>
+            <li><strong>Movement speed [MS]</strong>: How fast a champion moves across the map.</li>
+            <li><strong>Gold generation</strong>: The rate at which a champion passively generates gold.</li>
+        </ul>
+    
+        <h2>Increasing Statistics</h2>
+        <p>There are eight base statistics that can increase through growth: attack damage, attack speed, armor, magic resistance, health, health regeneration, mana, and mana regeneration. Growth is non-linear and increases with champion level.</p>
+        
+        <h3>Formula for Champion Statistics at a Specific Level</h3>
+        <div class="code">
+          <code class="language-javascript">
+            Statistic = base + bonus + g × (n - 1) × (0.7025 + 0.0175 × (n - 1)) <br>
+            base = initial statistic value <br>
+            bonus = bonus statistic from any source (runes, items, buffs, etc.) <br>
+            g = growth statistic <br>
+            n = current champion level <br>
+            (n - 1) = total number of level ups
+          </code>
+        </div>
+        <p>Example: Alistar starts at level 1 with 685 health. His health growth is 120. At level 2:</p>
+        <div class="code">
+          <code class="language-javascript">
+            Health = 685 + 120 × (2 - 1) × (0.7025 + 0.0175 × (2 - 1)) <br>
+            Health = 771.4 (rounded to 771 in game)
+          </code>
+        </div>
+    
+        <h3>Attack Speed Calculations</h3>
+        <p>Attack speed calculations use base attack speed, an attack speed ratio, and bonus attack speed percentages. The formula to calculate total attack speed is:</p>
+        <div class="code">
+          <code class="language-javascript">
+            Total Attack Speed = baseAs + [bonusAs + g × (n - 1) × (0.7025 + 0.0175 × (n - 1))] × AsRatio <br>
+            baseAs = base attack speed <br>
+            AsRatio = attack speed ratio <br>
+            g = percent bonus attack speed growth from leveling <br>
+            bonusAs = sum of bonus attack speed from other sources <br>
+            n = current champion level
+          </code>
+        </div>
+        <p>Example: Volibear at level 3 with his passive fully stacked:</p>
+        <div class="code">
+          <code class="language-javascript">
+            Total Attack Speed = 0.625 + [0.25 + 0.02 × (3 - 1) × (0.7025 + 0.0175 × (3 - 1))] × 0.7 <br>
+            Total Attack Speed = 0.625 + 0.19565 = 0.82065
+          </code>
+        </div>
+    </section>
+    <footer id="Contact">
+      <small>
+        <span>Made by&nbsp&nbsp;<a href="https://github.com/fahrenheigt" target="_blank">Fahrenheigt</a></span>
+        <span>
+          <a class="margin-left" href="mailto:axel.github@outlook.com">Send an Email</a>
+          <a class="margin-left" href="tel:+33600000000">Call me</a>
+          <a class="margin-left" href="#Introduction_to_league"><img src="images/arrow.png" alt="ashe-arrow-up"></a>
+        </span>
+      </small>
+    </footer>
+    </main>
 </body>
 </html>
